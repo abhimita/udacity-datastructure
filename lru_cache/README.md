@@ -33,5 +33,17 @@ OK
 
 ## Code design
 
+LRU cache implementation includes two data structures.
+
+- Dictionary storing the key and pointer to actual node in doubly linked list (see below)
+- Doubly linked list implementing queue structure where additions are made to the front of the queue and removal happens from 
+the end.
+
+When `get` method is invoked with `key` then the dictionary is looked up first. The lookup can either succeed or fail. 
+
+- If the key is not found then `-1` is returned
+- If the key is found then `value` "pointer" in the dictionary is used to retrieve the node in the doubly linked list. The node is removed from the linked list and put to the front so that it is treated as most recently used entry
+
+
 ## Efficiency
 
