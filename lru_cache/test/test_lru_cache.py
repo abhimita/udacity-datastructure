@@ -1,4 +1,6 @@
 import unittest
+import sys
+sys.path.append('./src')
 from lru_cache import LRU_Cache
 
 """
@@ -31,13 +33,13 @@ class Test_LRU_Cache(unittest.TestCase):
         data = lru_cache.get(2)
         self.assertEqual(data, -1)
 
-    # There elements were moved to cache. After that cache is full
+    # Three elements were copied to cache. After that cache is full
     # Attempt to put 4th element will result in LRU element being thrown out
     # Accessing 4th element should give back the value associated with 4th element
     def test_set_element_when_cache_is_full(self):
         # Max cache size is 3
         lru_cache = self.setup(3)
-        # There key & value pairs are put in cache
+        # Three key & value pairs are put in cache
         for i in [1, 2, 3]:
             lru_cache.set(i, "data-%d" % i)
         self.assertEqual(lru_cache.capacity, 3)
@@ -54,12 +56,12 @@ class Test_LRU_Cache(unittest.TestCase):
             data = lru_cache.get(i)
             self.assertEqual(data,"data-%d" % i)
 
-    # There elements were moved to cache. After that cache is full
+    # Three elements were moved to cache. After that cache is full
     # Attempt to put 4th element will result in LRU element being thrown out
-    # Confirm the order of the elements in cache
+    # Confirm the order of the elements in cache: keys in order are [4, 3, 2]
     def test_lru_purged_when_cache_is_full(self):
         lru_cache = self.setup(3)
-        # There key & value pairs are put in cache
+        # Three key & value pairs are put in cache
         for i in [1, 2, 3]:
             lru_cache.set(i, "data-%d" % i)
         lru_cache.get(2)
@@ -74,4 +76,4 @@ class Test_LRU_Cache(unittest.TestCase):
         self.assertTrue(1 not in cache_keys)
 
 if __name__ == '__main__':
-    unittest.main(argv=['first-arg-is-ignored'], exit=False)
+    unittest.main()
