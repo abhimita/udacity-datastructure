@@ -39,11 +39,16 @@ LRU cache implementation includes two data structures.
 - Doubly linked list implementing queue structure where additions are made to the front of the queue and removal happens from 
 the end.
 
+Dictionary is used as it provides O(1) time efficiency as it is the requirement in the specification. Along with O(1), there is a need to keep track of aging history of elements. That is taken care of by the linked list. A singly linked list would have given a time complexity of O(m) for removal of arbitrary element and addint it back to the front of the list where m is the number of elements of the linked list. Doubly linkedin list is used to have time complexity of O(1)
+
 When `get` method is invoked with `key` then the dictionary is looked up first. The lookup can either succeed or fail. 
 
 - If the key is not found then `-1` is returned
 - If the key is found then `value` "pointer" in the dictionary is used to retrieve the node in the doubly linked list. The node is removed from the linked list and put to the front so that it is treated as most recently used entry
 
+When `set` method is invoked then first dictionary is looked up for presence of `key`. If it is found then no action is taken. Otherwise if the cache is not full then a new node is created added to the begining of the list and an entry in the dictionary is created with `key` and pointer to newly created node.
+
+If the cache is already at maximum capacity, then oldest entry is removed from the doubly linked list by adjust the pointers and `tail` of the list. `key` for the LRU element is purged from dictionary. Newly created element is added to the front of the list and dictionary.
 
 ## Efficiency
 
