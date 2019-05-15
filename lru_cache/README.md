@@ -47,3 +47,14 @@ When `get` method is invoked with `key` then the dictionary is looked up first. 
 
 ## Efficiency
 
+### Time efficiency
+
+`get`: Given `key` the lookup in dictionary is of complexity O(1) whether the lookup is a success or failure. Successful lookup requires additional operation of brining the entry to the front of the list. For doubly linked list removal and re-insertion to front is also O(1) time. So overall time complexity is O(1)
+
+`set`: Set method requires a lookup in the dictionary. If `key` is found then no action is taken. Otherwise a new entry is created with `(key, value)` and inserted to the front of the doubly linked list. That is of complexity O(1). Dictionary entry is created for `key` and having a value as pointer to the newly created entry. Overall complexity is O(1) in this case.
+
+If the cache is already full, then there is a need to remove the last entry of the linked list as that is the LRU item. The tail pointer of linked list gives O(1) time complexity to find this element. Removal of this entry and insertion of newly created node has total of constant time complexity or O(1)
+
+### Space Complexity
+
+If the cache has maximum size of m, then dictionary is of O(m). This also means when cache is full then the linked list has O(m) entries. In addition to that there is need of storing `head` & `tail` pointers of the linked list. So the overall space complexity is O(m).
