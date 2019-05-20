@@ -7,7 +7,7 @@ The goal is to write code for finding all files under a directory (and all direc
 
 There are two directories. 
 1. `src` - contains the source code for recursive traversal
-2. `test` - contains the unit test cases. As it uses system call like `os.path.isfile`
+2. `test` - contains the unit test cases. As it uses system call like `os.path.isfile`, these calls are mocked using Python's mock module.
 
 There is Jupyter notebook under `src` folder that combines Python class file(s) and its unit tests.
 
@@ -21,33 +21,25 @@ To execute the code from command line, following steps are needed.
 
 ## Code design
 
-LRU cache implementation includes two data structures.
+File recusion involves two methods. Both methods are defined as `static method` since they don't need creation of the instance of object.
 
-- Dictionary storing the key and pointer to actual node in doubly linked list (see below)
-- Doubly linked list implementing queue structure where additions are made to the front of the queue and removal happens from 
-the end.
+1. `find_files`: This is the public method which takes the path name and file extension as two input parameters and invokes a private method
+2. `_find_files`: This is the privat method which takes two parameters described above along-with an additional parameter which is used as an accumulator to collect all files that satisfy the given file extension.
 
-Dictionary is used as it provides O(1) time efficiency as it is the requirement in the specification. Along with O(1), there is a need to keep track of aging history of elements. That is taken care of by the linked list. A singly linked list would have given a time complexity of O(m) for removal of arbitrary element and addint it back to the front of the list where m is the number of elements of the linked list. Doubly linkedin list is used to have time complexity of O(1)
+The script uses recursion. Base conditions are 
 
-When `get` method is invoked with `key` then the dictionary is looked up first. The lookup can either succeed or fail. 
-
-- If the key is not found then `-1` is returned
-- If the key is found then `value` "pointer" in the dictionary is used to retrieve the node in the doubly linked list. The node is removed from the linked list and put to the front so that it is treated as most recently used entry
-
-When `set` method is invoked then first dictionary is looked up for presence of `key`. If it is found then no action is taken. Otherwise if the cache is not full then a new node is created added to the begining of the list and an entry in the dictionary is created with `key` and pointer to newly created node.
-
-If the cache is already at maximum capacity, then oldest entry is removed from the doubly linked list by adjust the pointers and `tail` of the list. `key` for the LRU element is purged from dictionary. Newly created element is added to the front of the list and dictionary.
+- The path is none in which case there is nothing to be done
+- The path can be a regular file. In this case we check whether the file has the given extension. If the file has the extension then the complete path is appended to the list. Otherwise there is no action
 
 ## Efficiency
 
 ### Time efficiency
 
-`get`: Given `key` the lookup in dictionary is of complexity O(1) whether the lookup is a success or failure. Successful lookup requires additional operation of brining the entry to the front of the list. For doubly linked list removal and re-insertion to front is also O(1) time. So overall time complexity is O(1)
-
-`set`: Set method requires a lookup in the dictionary. If `key` is found then no action is taken. Otherwise a new entry is created with `(key, value)` and inserted to the front of the doubly linked list. That is of complexity O(1). Dictionary entry is created for `key` and having a value as pointer to the newly created entry. Overall complexity is O(1) in this case.
-
-If the cache is already full, then there is a need to remove the last entry of the linked list as that is the LRU item. The tail pointer of linked list gives O(1) time complexity to find this element. Removal of this entry and insertion of newly created node has total of constant time complexity or O(1)
+the method `find_files` needs to examine every node of the directory tree. So if there are n entries counting all directories ans sub directories from top level (counting recursively), time complexity will be O(n)
 
 ### Space Complexity
 
-If the cache has maximum size of m, then dictionary is of O(m). This also means when cache is full then the linked list has O(m) entries. In addition to that there is need of storing `head` & `tail` pointers of the linked list. So the overall space complexity is O(m).
+Every recursive call require creating an entry in the stack. In a most degenerate case let us assume that one top level directory has one sub directory which has another sub directory and so on .. till the last directory which has one file. Assuming a total of n entries, number of directories + sub directories = (n - 1) That will require O(n - 1) ~ O(n) stack entries.
+
+Similarly the accumulator to preserve all matches will require additional storage. If we assume a top level directory having (n - 1) files below it with each of them having the given suffix then the list will have size ~O(n)
+
