@@ -25,7 +25,7 @@ class Test_LRU_Cache(unittest.TestCase):
         data = lru_cache.get(2)
         self.assertEqual(data, "data-2")
 
-    # Cache is empty and attempt to access an element by key should return -1
+    # Cache is empty and attempt to access an element by key should return -1 (edge case)
     def test_get_element_when_cache_empty(self):
         lru_cache = self.setup(3)
         self.assertEqual(lru_cache.capacity, 3)
@@ -33,7 +33,7 @@ class Test_LRU_Cache(unittest.TestCase):
         data = lru_cache.get(2)
         self.assertEqual(data, -1)
 
-    # Three elements were copied to cache. After that cache is full
+    # Three elements were copied to cache. After that cache is full (edge_case)
     # Attempt to put 4th element will result in LRU element being thrown out
     # Accessing 4th element should give back the value associated with 4th element
     def test_set_element_when_cache_is_full(self):
@@ -56,7 +56,7 @@ class Test_LRU_Cache(unittest.TestCase):
             data = lru_cache.get(i)
             self.assertEqual(data,"data-%d" % i)
 
-    # Three elements were moved to cache. After that cache is full
+    # Three elements were moved to cache. After that cache is full (edge case)
     # Attempt to put 4th element will result in LRU element being thrown out
     # Confirm the order of the elements in cache: keys in order are [4, 3, 2]
     def test_lru_purged_when_cache_is_full(self):
