@@ -2,7 +2,7 @@ import os
 
 class FileRecursion:
     """
-    Method to find file with a given suffix
+    Private method to find file with a given suffix
     Arguments:
         suffix   : File extension e.g. .c
         path     : File path to be search for file with given suffix. File path can be a regular file as well
@@ -29,6 +29,9 @@ class FileRecursion:
 
     """
     Externally exposed method for finding file(s) with given suffix 
+    Arguments:
+        suffix   : File extension e.g. .c
+        path     : File path to be search for file with given suffix. File path can be a regular file as well
     """
     @staticmethod
     def find_files(suffix, path):
