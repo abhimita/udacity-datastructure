@@ -38,6 +38,11 @@ Overall complexity of encoding step will be  <a href="https://www.codecogs.com/e
 
 ### Space Complexity
 
-Every recursive call require creating an entry in the stack. In a most degenerate case let us assume that one top level directory has one sub directory which has another sub directory and so on .. till the last directory which has one file. Assuming a total of n entries, number of directories + sub directories = (n - 1) That will require O(n - 1) ~ O(n) stack entries.
+Data structures used are
+ 1. `frequency` dictionary - used to store frequency count of every character encountered in input string. size = O(n)
+ 2. Count of all nodes of binary tree = <a href="https://www.codecogs.com/eqnedit.php?latex=O(2^n&space;-&space;1)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?O(2^n&space;-&space;1)" title="O(2^n - 1)" /></a>
+ 3. `lookup` dictionary - used to store encoded string for every character - `n` entries with each encoded string of average length <a href="https://www.codecogs.com/eqnedit.php?latex=log_{2}n" target="_blank"><img src="https://latex.codecogs.com/svg.latex?log_{2}n" title="log_{2}n" /></a> complexity <a href="https://www.codecogs.com/eqnedit.php?latex=nlog_{2}n" target="_blank"><img src="https://latex.codecogs.com/svg.latex?nlog_{2}n" title="nlog_{2}n" /></a> 
+4. Binary tree is of size <a href="https://www.codecogs.com/eqnedit.php?latex=O(2^n&space;-&space;1)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?O(2^n&space;-&space;1)" title="O(2^n - 1)" /></a>
 
-Similarly the accumulator to preserve all matches will require additional storage. If we assume a top level directory having (n - 1) files below it with each of them having the given suffix then the list will have size ~O(n)
+Overall size complexity is <a href="https://www.codecogs.com/eqnedit.php?latex=O(2^n&space;-&space;1)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?O(2^n&space;-&space;1)" title="O(2^n - 1)" /></a>
+
