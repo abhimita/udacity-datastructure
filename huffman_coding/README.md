@@ -30,7 +30,11 @@ Binary tree structure lends itself to recursive strategy for traversal as every 
 
 Assume the string has `n` characters. Scanning every character in the string to built frequency count will have O(1) complexity. Frequency count also requires lookup in the dictionary by key. That is also of complexity O(1)
 
-In the next step when two chacacters of lowest frequency are picked up that requires sorting complexity O(nlogn). This process is repeated until all characters are exhausted. That increases the time complexity to <a href="https://www.codecogs.com/eqnedit.php?latex=n^2\log&space;_{2}(n)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?n^2\log&space;_{2}(n)" title="n^2\log _{2}(n)" /></a> even though the size of the array to sorted decreases by 1 for every iteration of the loop
+In the next step when two chacacters of lowest frequency are picked up that requires sorting complexity O(nlogn). This process is repeated until all characters are exhausted. That increases the time complexity to <a href="https://www.codecogs.com/eqnedit.php?latex=O(n^2\log&space;_{2}n)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?O(n^2\log&space;_{2}n)" title="O(n^2\log _{2}n)" /></a> even though the size of the array to sorted decreases by 1 for every iteration of the loop
+
+Once the binary tree is built, to encode the given string there is need to traverse the tree. Complexity of this stage will depend on how many nodes are there in the tree.
+
+Overall complexity of encoding step will be <a href="https://www.codecogs.com/eqnedit.php?latex=O(n^2\log&space;_{2}n)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?O(n^2\log&space;_{2}n)" title="O(n^2\log _{2}n)" /></a> as this is the domintaing term.
 
 ### Space Complexity
 
