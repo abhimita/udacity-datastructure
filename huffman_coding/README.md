@@ -32,9 +32,9 @@ Assume the string has `n` characters. Scanning every character in the string to 
 
 In the next step when two chacacters of lowest frequency are picked up that requires sorting complexity O(nlogn). This process is repeated until all characters are exhausted. That increases the time complexity to <a href="https://www.codecogs.com/eqnedit.php?latex=O(n^2\log&space;_{2}n)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?O(n^2\log&space;_{2}n)" title="O(n^2\log _{2}n)" /></a> even though the size of the array to sorted decreases by 1 for every iteration of the loop
 
-Once the binary tree is built, to encode the given string there is need to traverse the tree. Complexity of this stage will depend on how many nodes are there in the tree.
+Once the binary tree is built, to encode the given string there is need to traverse the tree. Complexity of this stage will depend on how many nodes are there in the tree. For a binary tree with n leaf nodes, total number of nodes in the tree will be <a href="https://www.codecogs.com/eqnedit.php?latex=2^n&space;-&space;1" target="_blank"><img src="https://latex.codecogs.com/svg.latex?2^n&space;-&space;1" title="2^n - 1" /></a>. During recursive traversal of the tree, every node of the tree is visited which the traversal complexity to <a href="https://www.codecogs.com/eqnedit.php?latex=O(2^n&space;-&space;1)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?O(2^n&space;-&space;1)" title="O(2^n - 1)" /></a>
 
-Overall complexity of encoding step will be <a href="https://www.codecogs.com/eqnedit.php?latex=O(n^2\log&space;_{2}n)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?O(n^2\log&space;_{2}n)" title="O(n^2\log _{2}n)" /></a> as this is the domintaing term.
+Overall complexity of encoding step will be  <a href="https://www.codecogs.com/eqnedit.php?latex=O(2^n&space;-&space;1)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?O(2^n&space;-&space;1)" title="O(2^n - 1)" /></a> as this is the domintaing term.
 
 ### Space Complexity
 
