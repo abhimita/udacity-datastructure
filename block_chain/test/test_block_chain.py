@@ -30,4 +30,11 @@ class TestBlockChain(unittest.TestCase):
         block_chain.append(first_block)
         next_block = Block.create_next_block(block_chain.tail.block)
         block_chain.append(next_block)
-        next_block.data = "Illegal modification"
+        with self.assertRaises(AttributeError) as context:
+            next_block.data = "Illegal modification"
+            self.assertTrue("can't set attribute" in context.exception)
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestBlockChain)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+    # unittest.main(argv=['first-arg-is-ignored'], exit=False)
