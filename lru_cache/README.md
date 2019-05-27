@@ -19,12 +19,16 @@ There are two directories.
 
 To execute the code from command line, following steps are needed.
 
-1. `cd <directory where code is checked out>/lru_cache`
-2. `PYTHONPATH=src python test/test_lru_cache.py`
+1. `cd <directory where code is checked out>`
+2. `PYTHONPATH=lru_cache/src python lru_cache/test/test_lru_cache.py`
 
 ### Output
 ```
-....
+test_get_element_when_cache_empty (__main__.TestLRUCache) ... ok
+test_get_element_when_cache_not_full (__main__.TestLRUCache) ... ok
+test_lru_purged_when_cache_is_full (__main__.TestLRUCache) ... ok
+test_set_element_when_cache_is_full (__main__.TestLRUCache) ... ok
+
 ----------------------------------------------------------------------
 Ran 4 tests in 0.000s
 
