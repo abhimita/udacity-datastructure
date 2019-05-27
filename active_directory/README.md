@@ -14,8 +14,8 @@ There are two directories.
 
 To execute the code from command line, following steps are needed.
 
-1. `cd <directory where code is checked out>/active_directory`
-2. `PYTHONPATH=src python test/test_group.py`
+1. `cd <directory where code is checked out>`
+2. `PYTHONPATH=active_directory/src python active_directory/test/test_group.py`
 
 ### Output
 ```
