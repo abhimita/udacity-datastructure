@@ -69,11 +69,15 @@ Next association shows that `user-2` (index = 4) belongs to `group-2` (index = 1
 
 When all associations are processed then list: `data` looks like following:
 
+<pre>
+
  Group-1 Group-2 Group-3 User-1  User-2   User-3
 +-------+-------+-------+-------+-------+-------+
 |   0   |   0   |   0   |   0   |   1   |   1   |
 +-------+-------+-------+-------+-------+-------+
     0       1       2       3       4       5     <--- Index of the list
+    
+</pre>
 
 Now to check membership of an user in a group, a dictionary is build for every `user` in the above list. For example - `user - 1` is in `index = 3` and `data[3] = 0`. Next `index = 0` is access which is for `Group-1`. A dictionary is entry is made for `(user-1, group-1)`
 
@@ -86,4 +90,10 @@ Let us walk through another example for `user-2` at `index = 4`. `data[4] = 1` n
 There is some overhead to build the final dictionary which is stored in instance variable `self.user_group_map`. But this is built only once during initialization step. The actual lookup results in time complexity of O(1) given user & group.
 
 ### Space Complexity
+
+Storage arises from the need to store the dictionary with combined key of `(user, group)`. To estimate the size of the dictionary assume that there are `m` groups and `n` users with each group having `p` on an average. Each group can be considered as a node of a `p-ary` tree. Assumming the tree is full, all groups will be inner nodes while nodes for `user` will be leaf node. The depth of the tree will be - <a href="https://www.codecogs.com/eqnedit.php?latex=log_{p}m" target="_blank"><img src="https://latex.codecogs.com/svg.latex?log_{p}m" title="log_{p}m" /></a>
+
+Total storage requirement for the dictionary will be <a href="https://www.codecogs.com/eqnedit.php?latex=nlog_{p}m" target="_blank"><img src="https://latex.codecogs.com/svg.latex?nlog_{p}m" title="nlog_{p}m" /></a>
+
+Storage complexity will be <a href="https://www.codecogs.com/eqnedit.php?latex=O(nlog_{p}m)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?O(nlog_{p}m)" title="O(nlog_{p}m)" /></a>
 
