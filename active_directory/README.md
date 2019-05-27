@@ -1,6 +1,6 @@
 # Introduction
 
-In Windows Active Directory, a group can consist of user(s) and group(s) themselves. User is represented by `id`. `Group` is represented as a Python class. Instance variable `groups` is a list data type and contains reference to other groups which are members of this group. Similarly instance variable `users` is a list data type and contains the list of user ids which belong to this class.
+In Windows Active Directory, a group can consist of user(s) and group(s) themselves. User is represented by `id`. `Group` is represented by a Python class named `Group`. Instance variable: `groups` in class: `Group` is a list that contains reference to other groups which are members of this group. Similarly instance variable `users` is a list that contains the list of user ids which belong to this class.
 
 Here we implement to a function which determines an efficient lookup to determine whether user is a member of a given group.
 
