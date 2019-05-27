@@ -1,6 +1,5 @@
 import sys
 import unittest
-sys.path.append('./src')
 from huffman import HuffmanCoding
 
 class TestHuffmanCoding(unittest.TestCase):
@@ -17,8 +16,8 @@ class TestHuffmanCoding(unittest.TestCase):
 
     def test_when_msg_is_null(self):
         with self.assertRaises(Exception) as context:
-            huffman_coding = HuffmanCoding(None)
-        self.assertTrue("Text to be encoded can't be null" in context.exception)
+            HuffmanCoding(None)
+            self.assertTrue("Text to be encoded can't be null" in context.exception)
 
     def test_when_msg_is_single_char(self):
         txt = "T"
@@ -34,4 +33,6 @@ class TestHuffmanCoding(unittest.TestCase):
         self.assertTrue(txt, huffman_coding.huffman_decoding(encoded_data, tree))
 
 if __name__ == '__main__':
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestHuffmanCoding)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+    # unittest.main(argv=['first-arg-is-ignored'], exit=False)

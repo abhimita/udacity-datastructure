@@ -47,7 +47,7 @@ class TestFileRecursion(unittest.TestCase):
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestFileRecursion)
-    unittest.TextTestRunner(verbosity=2).run(suite)
-    # unittest.main(argv=['first-arg-is-ignored'], exit=False)
+    #     unittest.TextTestRunner(verbosity=2).run(suite)
+    #     # unittest.main(argv=['first-arg-is-ignored'], exit=False)
 
 

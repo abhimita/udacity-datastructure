@@ -1,13 +1,13 @@
 import unittest
-from lru_cache import LRU_Cache
+from lru_cache import LRUCache
 """
 Unit testing class for LRU cache
 """
 
-class Test_LRU_Cache(unittest.TestCase):
+class TestLRUCache(unittest.TestCase):
 
     def setup(self, capacity):
-        return LRU_Cache(capacity)
+        return LRUCache(capacity)
 
     # Two elements are copied to cache and the second one is accessed. Cache is not full.
     def test_get_element_when_cache_not_full(self):
@@ -80,5 +80,7 @@ class Test_LRU_Cache(unittest.TestCase):
         self.assertEqual(data, -1)
 
 if __name__ == '__main__':
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestLRUCache)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+    # unittest.main(argv=['first-arg-is-ignored'], exit=False)
 

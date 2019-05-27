@@ -105,7 +105,7 @@ class UsageList:
 """
 Class implementing LRU cache
 """
-class LRU_Cache(object):
+class LRUCache(object):
     def __init__(self, capacity):
         self.cache = {}          # Dictionary used to store key and reference to cache entry in doubly linked list
         self.capacity = capacity # Max capacity of the cache

@@ -63,7 +63,6 @@ class HuffmanCoding:
         if len(text) == 1:
             dummy_char = random.choice(''.join([c for c in string.ascii_letters if c != text[0]]))
             self.frequency[dummy_char] = Node(value=dummy_char, count=0)
-        print(self.frequency)
 
     """
     Method to encode text into Huffman code
@@ -91,7 +90,7 @@ class HuffmanCoding:
             self.frequency.pop(sorted_by_count[1])
             # Parent node is introduced in the dictionary
             self.frequency[first_node.value + ':' + second_node.value] = new_node
-        root_node = self.frequency[self.frequency.keys()[0]]
+        root_node = self.frequency[[x for x in self.frequency.keys()][0]]
         tree = BinaryTree(root_node)
         tree.traverse(tree.root, self.lookup, '')
         return ''.join([self.lookup[c] for c in self.text]), tree
@@ -119,10 +118,3 @@ class HuffmanCoding:
                 begin_decoding = True
                 decoded_msg.append(start_node.value)
         return ''.join(decoded_msg)
-
-if __name__ == "__main__":
-    txt = "TaTpTpT"
-    huffman_coding = HuffmanCoding(txt)
-    encoded_data, tree = huffman_coding.huffman_encoding()
-    decoded_data = huffman_coding.huffman_decoding(encoded_data, tree)
-    print(encoded_data, decoded_data)

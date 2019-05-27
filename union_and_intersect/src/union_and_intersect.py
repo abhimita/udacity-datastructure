@@ -47,7 +47,7 @@ class LinkedList:
         return size
 
 
-class LinkedListOp:
+class UnionIntersectionOperator:
     def __init__(self):
         pass
     def union(self, *linked_list):
