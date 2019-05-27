@@ -98,7 +98,7 @@ Let us walk through another example for `user-2` at `index = 4`. `data[4] = 1` n
 ```
 user-2 -> access data[4] -> gives value 1 -> access data[1] -> stands for group-2 -> add dictionary entry (user-2, group-2) 
                                                  |-> gives value 0 -> access data[0] -> stands for group-1 -> add dictionary entry (user-2, group-1) 
-                                                                          -> access data[0] == 0 (stop iteration)
+                                                                          |-> access data[0] == 0 (stop iteration)
 
 ```
 
@@ -110,7 +110,7 @@ There is some overhead to build the final dictionary which is stored in instance
 
 ### Space Complexity
 
-Storage arises from the need to store the dictionary with combined key of `(user, group)`. To estimate the size of the dictionary assume that there are `m` groups and `n` users with each group having `p` on an average. Each group can be considered as a node of a `p-ary` tree. Assumming the tree is full, all groups will be inner nodes while nodes for `user` will be leaf node. The depth of the tree will be - <a href="https://www.codecogs.com/eqnedit.php?latex=log_{p}m" target="_blank"><img src="https://latex.codecogs.com/svg.latex?log_{p}m" title="log_{p}m" /></a>
+Storage arises from the need to store the dictionary with combined key of `(user, group)`. To estimate the size of the dictionary assume that there are `m` groups and `n` users with each group having `p` child group on an average. Each group can be considered as a node of a `p-ary` tree. Assumming the tree is full, all groups will be inner nodes while nodes for `user` will be leaf node. The depth of the tree will be - <a href="https://www.codecogs.com/eqnedit.php?latex=log_{p}m" target="_blank"><img src="https://latex.codecogs.com/svg.latex?log_{p}m" title="log_{p}m" /></a>
 
 Total storage requirement for the dictionary will be <a href="https://www.codecogs.com/eqnedit.php?latex=nlog_{p}m" target="_blank"><img src="https://latex.codecogs.com/svg.latex?nlog_{p}m" title="nlog_{p}m" /></a>
 
