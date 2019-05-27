@@ -96,7 +96,9 @@ Now to check membership of an user in a group, a dictionary is build for every `
 Let us walk through another example for `user-2` at `index = 4`. `data[4] = 1` next `index = 1` (coming from `data[4]`) is accessed resulting a new entry in the dictionary as `(user-2, group-2)`. This process continues till we hit a position in the list where `index == data[index]`. That happens when we reach `data[0]`. The complete iteration looks like:
 
 ```
-user-2 -> access data[4] -> gives value 1 -> access data[1] -> stands for group-2 -> add dictionary entry (user-2, group-2) -> data[1] gives value 0 -> access data[0] -> stands for group-1 -> add dictionary entry (user-2, group-1) -> access data[0] == 0 (stop iteration)
+user-2 -> access data[4] -> gives value 1 -> access data[1] -> stands for group-2 -> add dictionary entry (user-2, group-2) 
+                                                 |-> gives value 0 -> access data[0] -> stands for group-1 -> add dictionary entry (user-2, group-1) 
+                                                                          -> access data[0] == 0 (stop iteration)
 
 ```
 
