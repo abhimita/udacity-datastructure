@@ -1,8 +1,5 @@
 import unittest
 import mock
-import sys
-
-sys.path.append('./src')
 import file_recursion
 
 class TestFileRecursion(unittest.TestCase):
@@ -49,7 +46,8 @@ class TestFileRecursion(unittest.TestCase):
         mock_isfile.called_with('/top_dir', '/top_dir/dir1', '/top_dir/dir1/a.c', '/top_dir/dir1/b.c', '/top_dir/dir2', '/top_dir/dir2/e.txt')
 
 if __name__ == '__main__':
-#    unittest.main(argv=['first-arg-is-ignored'], exit=False)
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestFileRecursion)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+    # unittest.main(argv=['first-arg-is-ignored'], exit=False)
 
 

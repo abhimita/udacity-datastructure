@@ -105,3 +105,8 @@ class TestMembershipFinder(unittest.TestCase):
         # Confirm user-5 does not belong to group-10 because of transitivenes
         self.assertFalse(membership_finder.is_user_in_group('user-5', group_10))
         self.assertFalse(membership_finder.is_user_in_group('user-3', group_3))
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestMembershipFinder)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+    # unittest.main(argv=['first-arg-is-ignored'], exit=False)
