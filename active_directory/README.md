@@ -15,14 +15,26 @@ There are two directories.
 To execute the code from command line, following steps are needed.
 
 1. `cd <directory where code is checked out>/active_directory`
-2. `PYTHONPATH=src python test/test_groups.py`
+2. `PYTHONPATH=src python test/test_group.py`
+
+### Output
+```
+test_membership_finder_for_transitive_membership (__main__.TestMembershipFinder) ... ok
+test_membership_finder_when_all_users_belong_to_top_group (__main__.TestMembershipFinder) ... ok
+test_membership_finder_when_no_groups_contain_any_user (__main__.TestMembershipFinder) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK
+```
 
 
 ## Code design
 
-A group can contain member groups which in turn can contain other groups. An user can belong to a group directory or it can have membership transitively. To find whether user belongs to a group directly or indirectly, requires recursive traversal. That will not result in efficient lookup. To minimize that, `init` method of the class `MembershipFinder` builds data structure which helps in that look up process.
+A group can contain member groups which in turn can contain other groups. An user can belong to a group directly or it can have membership transitively. To find whether user belongs to a group directly or indirectly, requires recursive traversal. That will not result in efficient lookup. To minimize that, `init` method of the class `MembershipFinder` builds data structure which helps in that look up process.
 
-Here we are using a modified version of union-find algorithm without path compression. First users and groups are treated as objects and given an internal `id` starting from 0. Ordering of this id generation doesn't have any meaning. 
+Here we are using a modified version of union-find algorithm without path compression. At first, users and groups are treated as objects and given an internal `id` starting from 0. Ordering of this id generation doesn't have any consequence. `id`s are used as references and appear as content of a list named `data` which is explained below. 
 
 Let us assume the following relationship among the groups and users
 
@@ -79,9 +91,14 @@ When all associations are processed then list: `data` looks like following:
     
 </pre>
 
-Now to check membership of an user in a group, a dictionary is build for every `user` in the above list. For example - `user - 1` is in `index = 3` and `data[3] = 0`. Next `index = 0` is access which is for `Group-1`. A dictionary is entry is made for `(user-1, group-1)`
+Now to check membership of an user in a group, a dictionary is build for every `user` in the above list. For example - `user - 1` is in `index = 3` and `data[3] = 0`. Next `index = 0` (coming from `data[3]`) is accessed which stands for `Group-1`. A dictionary is entry is made for `(user-1, group-1)`
 
-Let us walk through another example for `user-2` at `index = 4`. `data[4] = 1` next `index = 1` is accessed resulting a new entry in the dictionary as `(user-2, group-2)`. This process continues till we hit a position in the list where `index == data[index]`. That happens when `data[1]` which is `0` is used to access `data[0]`.
+Let us walk through another example for `user-2` at `index = 4`. `data[4] = 1` next `index = 1` (coming from `data[4]`) is accessed resulting a new entry in the dictionary as `(user-2, group-2)`. This process continues till we hit a position in the list where `index == data[index]`. That happens when we reach `data[0]`. The complete iteration looks like:
+
+```
+user-2 -> access data[4] -> gives value 1 -> access data[1] -> stands for group-2 -> add dictionary entry (user-2, group-2) -> data[1] gives value 0 -> access data[0] -> stands for group-1 -> add dictionary entry (user-2, group-1) -> access data[0] == 0 (stop iteration)
+
+```
 
 ## Efficiency
 
